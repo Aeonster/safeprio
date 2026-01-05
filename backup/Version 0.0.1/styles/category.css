@@ -1,0 +1,136 @@
+@charset "utf-8";
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700); /* Standard font, 400=Normal, 700=Bold */
+/****
+	category.css 
+	Skapad av Patricio Santiago
+	Copyright Kortsystem i Gislaved AB
+	Version 1.0 - 2014-11-01
+****/	
+
+/************ Boxes and frames ************/
+.content {
+	padding-top:90px; /* Detta är hur mycket plats top menyn tar, eftersom det är fixed syns inget under */
+	width:100%;
+	margin-bottom:40px;
+}
+.wrapper {
+	margin:0 auto; /* centrerar */
+	width:93%; /* ger 3.5% marginaler åt varje sida */
+	max-width:960px; /* stoppar tillväxt av websidan när man når denna mått */
+}
+.content .box, .image {
+	display:inline-block;
+	vertical-align:middle;
+}
+.content .box {
+	width:62%;
+	border-radius:4px;
+	background-color: #900; /* #004fa2; */ /* mörkblå*/
+	color:#fff;
+	
+	margin-left:16px; /* Gör plats åt sido-pil */
+	position:relative;
+	
+	transition:background-color 2s; /* Backgrunden animeras med selection (se under) */
+}
+.content .box:before { /* skapar själva pilen */
+	content:''; /* för att det ska fungera måste det finnas "content" i detta fallet inget */
+	position:absolute; /* funkar endast om <a> har 'relative' - kolla uppe */
+	border:16px solid transparent; /* del 1 att skapa en ruta med endast borders, ingen färg */
+	border-right-color:#900; /* #004fa2; /* /* del 2 färga endast ett hörn för att då riktning på den */
+	
+	left:-32px; /* för att hamna i kant - 16*2=32px; */
+	top:38%; /* för att hamna i mitten - 16*2=32 100-32=68/2=34% */	
+	/* Vid mindre text så syns att det inte är i mitten - pga % - men inga fasta mått får användas
+	för att då stannar den inte i mitten alls. Ju mer text desto mer i mitten hamnar den. */
+	
+	transition:border-right-color 2s; /* Gör att pilen animeras (se under) */
+}
+.content .selection { /* Själva länken, skapar en wrapper över hela */
+	display:block;
+	margin-top:40px;
+	text-decoration:none;
+}
+.content .selection:hover>.box { /* next selection (a) hover så byter box backgrund med animering */
+	background-color:#db5353; /* #5380db; */
+}
+.content .selection:hover>.box:before { /* samma som ovan fast med pilen ist. */
+	border-right-color:#db5353; /* #5380db; */
+}
+.content .next { /* Eftersom next (och pil) är små och ligger till "right" behövs inte % */
+	text-align:right;
+	padding:0 24px 10px 0;
+	position:relative;
+}
+.content .next:before { /* skapar själva pilen - se tidigare comments */
+	content:'';
+	position:absolute;
+	border:6px solid transparent;
+	border-left-color:#fff;
+	
+	right:4px; /* Obs att detta är Right, inte Left */
+	top:6px;
+}
+/************ Headers and text ************/
+.content .mn_header { /* Top rubriken */
+	color:#004fa2; /*#900; */
+	font-weight:bold;
+	font-size:150%; /* 24px till % (formula 24/16*100) 16px är 100% */
+	padding-top:40px;
+}
+.content .mn_sbheader { /* underrubrik till topp-rubriken */
+	color:#004fa2; /* #900; */
+	font-weight:bold;
+	margin-bottom:20px;
+}
+.content .sb_header { /* Rubriken till bluebox */
+	font-weight:bold;
+	margin-bottom:10px;
+	padding:10px 2% 0;
+}
+.content .text { /* I slutet behöves inte 'text' under mn_header class */
+	padding:0 2% 10px;
+}
+
+/************ Images ************/
+.content .image { /* Diven som bilden är på */
+	width:35%;
+}
+.content img { /* Detta gäller själva bilden */
+	/* IE fix */
+	width:100%;
+	height:350px;
+	
+	/* Resize so den passar... men IE funkar det ej på (plattar bild) */
+	max-width:100%;
+}
+
+/* Vid 767px ska det shifta till mobil-läge */
+@media screen and (max-width: 767px) {
+	.content .selection {
+
+	}
+	.content .image {
+		width:100%;
+	}
+	.content .box {
+		width:100%;
+		margin:0;
+		margin-top:20px;
+		padding-right:2%;
+	}
+	.content .box:before { /* Vänder riktning samt flyttar pilen */
+		border:16px solid transparent; /* del 1 att skapa en ruta med endast borders, ingen färg */
+		border-bottom-color:#900; /* #004fa2; */ /* del 2 färga endast ett hörn för att då riktning på den */
+		left:1%; /* piler pekar upp nu på toppen (dock ej i mitten) */
+		top:-32px; /* fixar så marginaler är i kanter */
+	}
+	
+	/* Hover behövs inte i mobil läge, detta tar bort effekterna */
+	.content .selection:hover>.box {
+		background-color:#900; /* #004fa2; */
+	}
+	.content .selection:hover>.box:before {
+		border-right-color:transparent;		
+	}
+}

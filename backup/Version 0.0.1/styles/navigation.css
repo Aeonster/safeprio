@@ -1,0 +1,758 @@
+@charset "utf-8";
+/* @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700); */ /* Standard font, 400=Normal, 700=Bold */
+/****
+	navigation.css 
+	Skapad av Patricio Santiago
+	Copyright Kortsystem i Gislaved AB
+	Version 1.0 - 2014-11-01
+****/	
+
+/* Reset style */
+/*html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video*/
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	/* font-family:'Open Sans','sans-serif'; */
+    font-family: 'Century Gothic',CenturyGothic,AppleGothic,sans-serif;
+}
+
+/************ Block and frame ************/
+.navMobile, .sidr, .print_logotype, .print_footer { /* Göm mobile menyn för Desktop (gäller sidomenyer också) */
+	display:none;
+}
+/** Navigation Desktop **/
+.navDesktop { /* Omringar hela desktop menyn */
+	position:fixed; /* Menyn ska inte flytta på sig */
+	width:100%;
+	z-index:1000; /* Z 1000 så inget annat står ovanför menyn - som content */	
+}
+.navDesktop>.top, .navMobile>.top {
+/*	width:100%; osäker on hold */
+	background-color:white;
+	padding-top:4px; /* Flyttar ner menyn från kant (4px) */
+}
+.navDesktop>.bottom {
+/*	width:100%; osäker on hold */
+	background-color: #900; /* #004fa2; /* mörkblå */
+	height:26px;
+	line-height:26px; /* Text rad är lika hög som height - centrerar texten i mitten */
+}
+.navDesktop>.top>.wrapper, .navDesktop>.bottom>.wrapper, .navMobile>.top {
+	margin:0 auto; /* top/down - left/right */
+	width:93%; /* Bredden är alltid 93% */
+	max-width:960px; /* Bredden når detta ska den sluta växa */
+	overflow:auto; /* float:left sticker inte utanför menyn */
+}
+
+/** B&F - Navigation Desktop - Top **/
+.navDesktop>.top>.wrapper>a, .navMobile>.top>a {
+	width:14.28571428%; /* 7 / 100% - dock endast 6 länkar, search är 2, logotype i mitten */
+	float:left;
+	position:relative; /* för att 'selected' pil ska fungera */
+	height:60px; /* Höjd på top-menyn (padding från top ej inräknad) */
+	line-height:60px; /*  Text rad är lika hög som height - centrerar texten i mitten */
+	border-radius:5px 5px 0 0; /* TL TR BR BL - Skapar hörn på TOP delar */
+	transition:background-color 1.0s; /* Animerar en fade-in med :hover element */
+}
+.navDesktop>.top>.wrapper>a:hover {
+	background-color:#e5e7ed; /* grå */
+}
+.navDesktop>.top>.wrapper>.search:hover, .navDesktop>.top>.wrapper>.logotype:hover {
+	background-color:white; /* stäng av hover effekt på logo och search */
+}
+.navDesktop>.top>.wrapper>.search { 
+	width:28.57142856%; /* search använder 2 block istället för 1 */
+	transition:none; /* Tar bort hover transition, search ska inte ha */
+	padding-top:13px; /* Flyttar ner searchbox, ökar dock height med samma */
+	height:47px; /* Ny height storlek som räknar med ovan padding (13+47 = 60) */
+}
+.navDesktop #search, .navDesktop>.top>.wrapper>.search>input[type=search], .sidr .search>input[type=search] {
+  -webkit-appearance:none; /* lite av en double edge here */
+	-webkit-appearance:textfield; /* Cancel safari overwrite */
+	width:90%; /* Får ej vara 100% annars slår det hover effekt kanter. */
+	height:30px; /* höjden är 60/2 = 30px */
+	border:2px solid #e5e7ed; /* ljusgrå */
+	border-radius:15px; /* 30/2 = 15 för helt runda hörn */
+	transition:border-color 1.0s; /* fade effekt på border */
+	padding:0 2% 2px 11.5%; /* T/R/B/L - OBS! L har större pga sök ikon */
+	-moz-box-sizing:border-box;
+	box-sizing:border-box; /* fixar buggar i andra browser som FF */
+	font-size:87.5%; /* 14px (14/16*100) */
+}
+.navDesktop #search:hover, .navDesktop>.top>.wrapper>.search>input[type=search]:hover, .sidr .search>input[type=search]:hover {
+	border-color:#ccc; /* mörkgrå */
+}
+.navDesktop #search:focus, .navDesktop>.top>.wrapper>.search>input[type=search]:focus, .sidr .search>input[type=search]:focus {
+	border-color:#900; /* #004fa2; /* mörkblå */
+	outline:none; /* tar bort den ljusblå rutan (passar inte med runda hörn) */
+}
+.navDesktop>.top>.wrapper>.cart { /* gör om cart knappen */
+	/* block höjd är 60px, top margin 4px. Ny bottom-margin på 4px, över blir 56px */
+	height:56px;
+	margin-bottom:4px;
+	border-radius:5px; /* runda hörn på alla sidor */
+	background-color:#76c048; /* grön */
+	color:white;	
+	line-height:normal; /* återställer text linjen så den inte hamnar i mitten */
+}
+.navDesktop>.top>.wrapper>.cart:hover { /* skriver över vissa hover effekter från standard */
+	background-color:#59a42c; /* mörkgrön */
+}
+.navDesktop>.top>.wrapper>.cart>div { /* Kundvagn har varor i */
+	font-size:68.75%; /* 11px */
+	font-weight:normal;
+	height:30px;
+	line-height:30px;
+}
+.navDesktop>.top>.wrapper>.cart>div>span { /* Priset på varor */
+	font-size:110%; /* 12px */
+	font-weight:bold;
+}
+/* Endast när kundvagn är tomt */
+.navDesktop>.top>.wrapper>.cart.empty {
+	background-color:#999;
+}
+.navDesktop>.top>.wrapper>.cart.empty>div {
+	font-size:75%; /* 12px */
+}
+
+/** B&F - Navigation Desktop - Bottom **/
+.navDesktop>.bottom>.wrapper>div { /* crumbs & language hamnar efter varandra */
+	float:left;
+}
+.navDesktop>.bottom>.wrapper>.breadcrumb { /* crumbs tar i plats */
+	width:85%; /* 85% av 960 = 816px */
+}
+.navDesktop>.bottom>.wrapper>.breadcrumb>a { /* breadcrumb länkar */
+	display:inline-block; /* gör om <a> till block i rad (<li>) */
+	position:relative; /* krävs för :before/:after */
+	overflow:hidden; /* gömmer :before/:after element som hamnar utanför raden */
+	
+	color:#fff; /* Länkar ska vara vita (ej blått) */
+	text-decoration:none; /* Inga underlinjer */
+	padding:0 15px 0 30px; /* T R B L */
+	margin-right:-4px; /* bugfix: pga av overflow:hidden så blir det 4px tom yta till höger när man hover */
+	
+	transition:background-color 0.8s; /* animering av backgrundsfärg */	
+}
+.navDesktop>.bottom>.wrapper>.breadcrumb>a:before, .navDesktop>.bottom>.wrapper>.breadcrumb>a:after {
+	content:''; /* skapar både before och after */
+	position:absolute; /* för att flyttas fritt */
+	width:0; /* pilen baseras helt på borders, ingen box/block behövs */
+	height:0;
+	
+	/* Eftersom borders går ihop på kanter med 45 grader, om man inte har en box bildar kanter ihop en pil */
+	/* Så man färgar bara en kant och det blir en |> (pil) som är ifyll. */
+	/* Så jag skapar 2 pilar, en before och en after, detta kommer båda se ut precis samma. */
+	/* Så sen flyttar man en av pilar bak och färgar i bakgrundsfärg, TADA, tänk på flyttning skapar  */
+	/* spetsiga kanter, därför måste borders vara större än 26 (17+17=32), sen flytta upp 4px. */
+	border:17px solid transparent; /* vi skapar en border låda som är 32x32, alla kanter transparent */
+	border-left-color:#fff; /* sen färgar vi vänster kant vit */
+	
+	pointer-events:none; /* Detta gör att pilarna inte stör länkar */
+	
+	top:-4px; /* flyttar upp 4px för att after flyttas bak 4px, blir en kant annars */
+	left:0;
+	
+	transition:border-left-color 0.8s; /* Animerar border-left för att passa in med vanliga <a> */
+}
+.navDesktop>.bottom>.wrapper>.breadcrumb>a:after { /* flyttar och färgar en pil för att få hela effekten */
+	left:-4px; /* Antalet pixlar den flyttas bak blir tjockleken på den vita linjen */
+	border-left-color:#900; /* #004fa2; */
+}
+.navDesktop>.bottom>.wrapper>.breadcrumb>a:hover { /* Skapa hover effekt */
+	background-color:#db5353; /* #5380db; */
+}
+.navDesktop>.bottom>.wrapper>.breadcrumb>a:hover + a:after { /* Detta skapar hover effekt på a:after om man hover på <a> */
+	border-left-color:#db5353; /* #5380db; */ /* Endast border LEFT får färgas */
+}
+.navDesktop>.bottom>.wrapper>.breadcrumb>a:first-child:before, .navDesktop>.bottom>.wrapper>.breadcrumb>a:first-child:after {
+	display:none; /* tar bort Pilen från "Hem" crumb */
+}
+.navDesktop>.bottom>.wrapper>.breadcrumb>a:first-child { /* Först crumb länk måste flyttas bak */
+	padding-left:18px; /* Ställen in ny padding från 30px från <a> (det är för mycket) */
+}
+.navDesktop>.bottom>.wrapper>.breadcrumb>a:last-child { /* Sista crumb ska inte ha hover effekt */
+	background:none;
+}
+
+.navDesktop>.bottom>.wrapper>.language { /* Language tar i plats */
+	width:15%; /* Crumb tar 85%... */
+}
+.navDesktop>.bottom>.wrapper>.language>.dropdown a { /* <a> alla language länkar */
+	display:block; /* Omvandla <a> till <div> blocks */
+	margin:0 auto;
+	width:60px; /* 32+8 = 40+60 = 100px är totala width*/
+	padding:0 32px 0 8px; /* T/R/B/L */
+	transition:background-color 0.5s; /* får fade-animation vid hover av länkar */
+	/* Länk texten */
+	color:#fff;
+	text-decoration:none;
+	text-align:right;
+}
+.navDesktop>.bottom>.wrapper>.language>.dropdown>a { /* gäller bara första länk <a> */
+	position:relative; /* Behövs för att positionera pilen */
+}
+.navDesktop>.bottom>.wrapper>.language>.dropdown { /* bugfix: wrapper till language för att "hover" box ska animera korrekt */
+	margin:0 auto;
+	width:100px;
+}
+.navDesktop>.bottom>.wrapper>.language>.dropdown:hover>div { /* vid wrapper hover ska första diven öppnas*/
+	height:26px; /* istället för block display kör vi height */
+	/* Detta kommer att skapa problem, height används nu för snygg animering
+	   som består av 3 länkar på 26px var. Problemet sker när det dyker upp mer språk.
+	   då måste man manuellt lägga till eller ta bort 26px. Alltså icke hållbart! */
+}
+.navDesktop>.bottom>.wrapper>.language>.dropdown>a:before { /* pil ner på language */
+	content:''; /* för att det ska fungera måste det finnas "content" i detta fallet inget */
+	position:absolute; /* funkar endast om <a> har 'relative' - kolla uppe */
+	border:6px solid transparent; /* del 1 att skapa en ruta med endast borders, ingen färg */
+	border-top-color:#fff; /* del 2 färga endast ett hörn för att då riktning på den */
+	
+	right:10px; /* 10+10 = 20px box. 100-20 = 80/2 = 40% */
+	top:10px; /* 60-20 = 40px för att pilen ska hamna i lådan */	
+}
+.navDesktop>.bottom>.wrapper>.language>.dropdown>div { /* första <div> som innehåller dropdown */
+	width:100px;
+	margin:0 auto;
+	height:0;
+	overflow:hidden;
+	transition:height 0.2s;
+	background-color:#900; /* #004fa2; */
+}
+.navDesktop>.bottom>.wrapper>.language>.dropdown>div>a:hover {
+	background-color:#db5353; /* #5380db; */
+}
+
+/************ Header, text and link ************/
+.navDesktop>.bottom {
+	color:white;
+	font-size:81.25%; /* 13px (13/16*100) */	
+}
+/** HT&L - Navigation Desktop - Top **/
+.navDesktop>.top>.wrapper>a, .navMobile>.top>a {
+	text-decoration:none;
+	text-align:center;
+	color:#900; /* #004fa2; /* mörkblå */
+	font-weight:bold;
+}
+/************ Image and art ************/
+.navDesktop>.top>.wrapper>.search:before, .sidr .search:before { /* skapar "sök" ringen - (fungerar dåligt i IE10 och IE9 */
+	content:''; /* måste ha content som är tomt */
+	position:absolute;
+	/* Under skapar själva ringen. Box är 6x6 men pga 2px border -> radius 6+2 för cirkel */
+	border:2px solid #ccc; /* grå */
+	width:6px;
+	height:6px;
+	border-radius:8px;
+	top:22px;
+	left:8.5%;
+}
+.navDesktop>.top>.wrapper>.search:after, .sidr .search:after { /* skapar pinne under "sök" ringen - ej IE10 eller IE9 */
+	content:''; /* måste ha content som är tomt */
+	position:absolute;
+	/* Under skapas en liten box med runda hörn som sedan roteras 45grader */
+	width:6px;
+	height:2px;
+	background:#ccc; /* grå - måste passa ringen */
+	border-radius:1px;
+	/* Transform kräver vendor-tags än */
+	-webkit-transform:rotate(45deg);
+	-moz-transform:rotate(45deg);
+	-ms-transform:rotate(45deg);
+	-o-transform:rotate(45deg);
+	transform:rotate(45deg);
+	box-shadow:-1px 0 #ccc; /* Skugga gör att sammaslagning med ring blir perfekt */	
+	top:32px;
+	left:11%;
+}
+.navDesktop>.top>.wrapper>.logotype, .navMobile>.top>.logotype { /* logotypen på menyn */
+	background:url('../images/logo.svg') no-repeat center;
+/*	background-image:url('../images/logo.svg', none); */
+	background-size:auto 140%; /* resize bild, annars för stor */
+
+  transition:none; /* Tar bort hover transition, logotype ska inte ha */
+}
+.navDesktop>.top>.wrapper>.selected:before { /* pil upp på aktiv meny - görs med 'before' */
+	content:''; /* skapa tomt content */
+	position:absolute; /* 'relative' - kolla uppe */
+	border:10px solid transparent; /* del 1 att skapa en ruta */
+	border-bottom-color:#900; /* #004fa2; */ /* del 2 färga endast ett hörn för att då riktning på den */
+
+	left:40%; /* 10+10 = 20px box. 100-20 = 80/2 = 40% */
+	top:40px; /* 60-20 = 40px för att pilen ska hamna i lådan */
+}
+
+.linkImg {
+    background: url(../images/link.svg) no-repeat center;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+}
+
+/* Vid 767px ska det shifta till mobil-läge */
+@media screen and (max-width: 767px) {
+	.navDesktop { /* Göm desktop menyn för Mobile */
+		display:none;
+	}
+	.navMobile { /* Visa mobile menyn för Mobile */
+		display:block;
+		position:fixed; /* Menyn ska inte flytta på sig */
+		width:100%;
+		z-index:1000; /* Z 1000 så inget annat står ovanför menyn - som content */
+		background-color:#fff;
+	}
+	
+	/* Detta är menyn för mobil.
+		 Obs dock att det finns flera element från ovan.
+		 Detta är bara dessa som skiljer sig åt */
+	.navMobile>.top {
+		height:60px;
+	}
+	.navMobile>.top>a {
+		width:25%;
+	}
+	.navMobile>.bottom {
+		height:4px;
+		background-color:#900; /* #004fa2; */
+	}
+	.navMobile>.top>.logotype {
+		width:50%;
+	}
+	
+	.footer>div:last-child>span {
+		display:block;
+	}
+	.footer>div:last-child>i {
+		 display:none;
+	}
+}
+
+/************ Mobil menyer (sidr) ************/
+/* sidr menyer - Left är vanliga, Right är sök */
+.sidr { /* gäller båda menyer */
+	display:none; /* Ska inte visas */
+/*	position:absolute;*/
+	position:fixed;
+	top:0;
+	height:100%;
+	z-index:100;
+	
+	/* Om du ändrar width måste du ändra också i left eller right */
+	width:260px;
+	overflow-x:none;
+	overflow-y:auto;
+	
+	/*padding-top:3px;*/
+}
+/* Right eller Left gör att slide in animation syns */
+.sidr.right { /* sök menyn */
+	left:auto;
+	right:-260px;
+	background-color:#fff;
+}
+.sidr.left { /* vanliga menyn */
+	left:-260px;
+	right:auto;
+	background-color:#900; /* #004fa2; */
+}
+.sidr a { /* alla länk fix */
+	display:block;
+	
+	height:60px;
+	line-height:60px; /* centrerar texten i mitten */
+	padding-left:10%;
+	
+	text-decoration:none;
+	color:#fff;
+	font-weight:bold;
+	border-bottom:1px solid #fff;
+}
+.sidr .language>div a { /* undermeny for language, flytta 30% för att få den effekten */
+	position:relative;
+	padding-left:15%;
+	font-weight:normal;
+	font-size:79%;
+	
+	height:40px;
+	line-height:40px;
+}
+.sidr .search { /* höger menyn */
+	height:50px;
+	padding-top:14px; /* 47+14 = 61px (1px extra pga av tidigare padding) */
+	transition:none; /* avaktivera animering */
+	position:relative;
+
+}
+
+/* Detta är själva sökfält - Endast de små flyttningar och små-ändringar som behövs.
+	 HELA input bar baseras på den vanliga input design, därför använder den samma kod som tidigare
+   Vill man förändra något ska man lägga in class här med de changes, för att spara plats. */
+.sidr .search:before { /* Sök ringen ska ha annan position */
+	top:22px;
+	left:37px;
+}
+.sidr .search:after { /* Sök pinnen ska ha annan position */
+	top:32px;
+	left:44px;
+}
+
+/* Visar en pil samt flyttar ut alla menyer som har "selected" class. Alltså var man är. */
+.sidr .selected { /* Förberedelse för pil */
+	position:relative;
+	padding-left:18%; /* Flyttar meny valet för pil val */
+}
+.sidr .selected:before { /* skapar själva pilen */
+	content:''; /* för att det ska fungera måste det finnas "content" i detta fallet inget */
+	position:absolute; /* funkar endast om <a> har 'relative' - kolla uppe */
+	border:8px solid transparent; /* del 1 att skapa en ruta med endast borders, ingen färg */
+	border-left-color:#fff; /* del 2 färga endast ett hörn för att då riktning på den */
+	
+	left:10%; /* responsive */
+	top:22px; /* för att hamna i mitten */	
+}
+
+/* .mobileXXXX skapar tillbaka knappar för mobilmenyn så det ser snyggt ut helt enkelt. */
+.menuMobile.back, .searchMobile.back { /* Tillbaka knapp på menyer */
+	background-color:#fff;	
+	color:#900; /* #004fa2; */
+	padding-top:3px; /* här och ner gäller endast Left */
+	padding-right:20%;
+	text-align:right;
+}
+.searchMobile.back { /* fixar till Right från ovan */
+	padding-top:4px;
+	padding-left:20%;
+	text-align:left;
+	border-bottom:4px solid #004fa2; /* flawless linje :) */
+}
+.menuMobile.back:before { /* pil > på tillbaka, gjorts flera gånger, kolla ovan för detaljer */
+	content:'';
+	position:absolute;
+	border:8px solid transparent;
+	border-left-color:#900; /* #004fa2; */
+	
+	right:10%;
+	top:25px;
+}
+.searchMobile.back:before { /* pil < på tillbaka, sparas space, kolla ovan */
+	content:'';
+	position:absolute;
+	border:8px solid transparent;
+	border-right-color:#900; /* #004fa2; */
+	
+	left:10%;
+	top:25px;
+}
+
+/***** Sökresultat element *****/
+/* Search Engine */
+#searchDesktop { /* Gömmer - men skapar också en sökbox som ska vara över allt annat */
+	display:none;
+	position:fixed;
+	z-index:2000;
+	width:100%;
+	top:47px;
+}
+#searchDesktop>.searchPosition { /* Samma mått som huvudram (för att få en mer perfekt fit */
+	margin:0 auto;
+	width:93%;
+	max-width:960px;
+}
+#searchSuggestion_Desktop { /* Själva suggestion box */
+	margin-left:1.42857143%;
+	width:25.25%;
+	background-color:#fff;
+	position:relative;
+	margin-top:10px;
+	border:1px solid #900; /* #004fa2; */
+	border-radius:4px;
+}
+#searchSuggestion_Desktop:before { /* Blå pil */
+	content:'';
+	position:absolute;
+	border:8px solid transparent;
+	border-bottom-color:#900; /* #004fa2; */
+	
+	left:42%;
+	top:-16px;
+}
+#searchSuggestion_Desktop:after { /* En vit pil över den blåa, skapar en "hollow" effekt */
+	content:'';
+	position:absolute;
+	border:8px solid transparent;
+	border-bottom-color:#fff;
+	
+	left:42%;
+	top:-15px;
+}
+
+#searchSuggestion_Desktop a { /* Fixar länkar - de blir som <div> blocks, får en border bottom */
+	display:block;
+	overflow:auto;
+	color:#000;
+	text-decoration:none;
+	border-bottom:1px solid #ccc;
+	
+	transition:background-color 0.5s;
+}
+#searchSuggestion_Desktop a:last-child { /* Sista länk ska inte ha border */
+	border-bottom:none;
+}
+#searchSuggestion_Desktop a:hover { /* hover effekt färg */
+	background-color:#e5e7ed; /* ljust grå */
+}
+#searchSuggestion_Desktop a:first-child:hover { /* fixar så FÖRSTA linkbox är samma som hela rutan */
+	border-top-left-radius:4px;
+	border-top-right-radius:4px;
+}
+#searchSuggestion_Desktop a:last-child:hover { /* fixar så SISTA linkbox är samma som hela rutan */
+	border-bottom-left-radius:4px;
+	border-bottom-right-radius:4px;
+}
+#searchSuggestion_Desktop a>.searchImage { /* Bilden ska float left - kan finnas errors med detta */
+	float:left;
+}
+#searchSuggestion_Desktop .searchImage { /* Tvingar resultat bilden att vara en specifikt storlek (pga svg) */
+	width:50px;
+	margin:10px;
+}
+#searchSuggestion_Desktop .searchImage img { /* Resize själva bilden att passa in på searchImage box. */
+	/* IE fix */
+	width:100%;
+	height:50px;
+	
+	/* Resize so den passar... men IE funkar det ej på (plattar bild) */
+	max-width:100%;	
+}
+#searchSuggestion_Desktop .searchContent { /* Marginal på alla sidor for "lufta" lite */
+	margin:5px;
+}
+#searchSuggestion_Desktop .searchContent>div:first-child { /* rubrik */
+	font-weight:bold;
+	font-size:81.25%; /* 13px */
+}
+#searchSuggestion_Desktop .searchContent>div:last-child { /* text */
+	font-size:68.75%; /* 11px */
+}
+
+/* Add-ons . Bland annat + och X */
+#searchSuggestion_Desktop .searchPlus { /* addon till sista search content - skapar + */
+	position:relative;
+	padding-left:30px;
+}
+#searchSuggestion_Desktop .searchPlus:before, #searchSuggestion_Desktop .searchPlus:after { /* Del 1+2 gemensama saker */
+	position:absolute;
+	content:'';
+	transition:border-color 0.5s;
+}
+#searchSuggestion_Desktop .searchPlus:before { /* del 1 av plus.. detta är - */
+	border-bottom: 4px solid #ccc;
+
+	width:16px;
+	height:8px;
+	
+	left:4px;
+	top:6px;
+}
+#searchSuggestion_Desktop .searchPlus:after { /* del 2 av plug detta är | */
+	border-left: 4px solid #ccc;
+
+	width:8px;
+	height:16px;
+	
+	left:10px;
+	top:8px;
+}
+#searchSuggestion_Desktop .searchFail { /* addon till fel vid sök - skapar X */
+	position:relative;
+	padding-left:30px;
+}
+#searchSuggestion_Desktop .searchFail > div:first-child {
+	color:#900;
+}
+#searchSuggestion_Desktop .searchFail:before, #searchSuggestion_Desktop .searchFail:after { /* Del 1+2 gemensama saker */
+	position:absolute;
+	content:'';
+	transition:border-color 0.5s;
+}
+#searchSuggestion_Desktop .searchFail:before { /* del 1 av X.. detta är / */
+	border-bottom: 4px solid #900;
+
+	width:18px;
+	height:10px;
+	
+	left:0px;
+	top:6px;
+	
+	-webkit-transform:rotate(-45deg);
+	-moz-transform:rotate(-45deg);
+	-ms-transform:rotate(-45deg);
+	-o-transform:rotate(-45deg);
+	transform:rotate(-45deg);
+}
+#searchSuggestion_Desktop .searchFail:after { /* del 2 av X detta är \ */
+	border-bottom: 4px solid #900;
+
+	width:18px;
+	height:10px;
+	
+	left:7px;
+	top:6px;
+
+	-webkit-transform:rotate(45deg);
+	-moz-transform:rotate(45deg);
+	-ms-transform:rotate(45deg);
+	-o-transform:rotate(45deg);
+	transform:rotate(45deg);
+}
+#searchSuggestion_Desktop a:hover > .searchPlus:before, #searchSuggestion_Desktop a:hover > .searchPlus:after {
+	border-color:#004fa2;
+}
+
+/* Search Engine Mobile - Mobil visas ej som egen ruta men en del av huvudram */
+#searchSuggestion_Mobile, #searchSuggestion_Mobile a, #searchSuggestion_Mobile div { /* Reset alla style för resultat */
+	width:auto;
+	height:auto;
+	line-height:normal;
+	padding:0;
+	margin:0;
+	color:#000;
+	font-weight:normal;
+	float:none;
+	/* Obs, denna reset är ifall något element "inherit" något från annan element */
+}
+#searchSuggestion_Mobile { /* Ger lite luft vid sidor */
+	width:90%; /* 5% per sida */
+	margin:0 auto; /* Centrerar */
+}
+#searchSuggestion_Mobile a { /* Länk design (obs att det är ej block nu) */
+	padding:0;
+	border-bottom:1px solid #ccc;
+	overflow:auto;
+	width:100%;
+}
+#searchSuggestion_Mobile a:last-child { /* Sista länk ska inte ha border */
+	border-bottom:none;
+}
+#searchSuggestion_Mobile .searchImage { /* Bildbox storlek */
+	float:left;
+	width:50px;
+	margin:5px;
+}
+#searchSuggestion_Mobile .searchImage img { /* Bild storlek (ska anpassas till Bildbox) */
+	/* IE fix */
+	width:100%;
+	height:50px;
+	
+	/* Resize so den passar... men IE funkar det ej på (plattar bild) */
+	max-width:100%;	
+}
+#searchSuggestion_Mobile .searchContent { /* Textbox */
+	float:left;
+	width:164px;
+	margin:5px;
+}
+#searchSuggestion_Mobile .searchContent>div:first-child { /* rubrik */
+	font-weight:bold;
+	font-size:81.25%; /* 13px */
+}
+#searchSuggestion_Mobile .searchContent>div:last-child { /* text */
+	font-size:68.75%; /* 11px */
+}
+
+/***** Footer *****/
+DEPRI.footer { /* Footer allmänna saker som gäller */
+	background-color:#900;
+	color:white;
+	font-size:81.25%; /* 13px */
+	padding:6px 0;
+}
+DEPRI.footer>div { /* centrera så det passar resten */
+	overflow:auto; /* pga av floats senare */
+	width:93%; /* ger 3.5% marginaler åt varje sida */
+	max-width:960px; /* stoppar tillväxt av websidan när man når denna mått */
+	margin:0 auto;
+}
+DEPRI.footer>div:first-child>div:first-child { /* Copyright */
+	float:left;
+	padding:2px 20px;
+}
+DEPRI.footer>div:first-child>div:last-child { /* Länkar */
+	float:right;
+	padding:2px 20px;
+}
+DEPRI.footer>div:first-child>div>a { /* Som inte är länkar, jquery sak, maskera som länkar */
+	cursor:pointer;
+	border-bottom:1px solid #900;
+	transition:border-bottom 0.5s;
+}
+DEPRI.footer>div:first-child>div>a:hover { /* Animera en underline hover, text-decor går ej att animera */
+	border-bottom:1px solid white;
+}
+DEPRI.footer>div:last-child { /* Information om man klickar på länkar */
+	text-align:right;
+	width:93%;
+	max-width:960px;
+	padding-right:20px;
+	display:none;
+}
+DEPRI.footer>div:last-child>i {
+	font-style:normal;
+}
+
+.footer {
+  background-color:#004fa2; /* #900; */
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+.footer > div {
+  padding-top: 20px;
+}
+
+.footer .company {
+  font-weight: bold;
+  font-size:1.3125em;
+  
+}
+
+.footer .contact {
+  padding-top: 0;
+  font-size:0.875em;
+}
+
+.footer a {
+  color: white;
+}
+
+@media print {
+	.navDesktop, .footer {
+		display:none;
+	}
+	
+	.print_logotype {
+		display:block;
+		margin:20px auto -20px;
+		width:94%;
+		height:100px;
+		background:url('../images/logo.svg') no-repeat left;
+		background-size:auto 90%;
+	}
+	
+	.print_footer {
+		display:block;
+		margin:20px auto -20px;
+		width:94%;
+	}
+	.print_footer>span {
+		font-size:13px;
+	}
+	.print_footer>i {
+		font-style:normal;
+	}
+}

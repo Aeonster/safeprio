@@ -1,0 +1,24 @@
+# Saker att fixa.
+- Fixas -- Vart kommer kategorier ifrån? en heter LV, andra Påbudsskyltar osv.
+- Fixad -- Bilder, Symbolbild, sen under lägga in gruppbild?
+- Fixad -- SEK -> EUR fungerar inte.
+- Fixad -- Staffling syns inte? 
+- Fixad -- Ska vi inte skapa en dynamisk pris som uppdaterar total pris
+- Fixad -- Dynamisk visa vilken staffling nivå man är på?
+- Fixad -- Material i RM? what?
+- Fixad -- Leverans? bort
+- Fixad -- RM-LV? what?
+- Fixad -- För mycket artno.
+- Fixad -- Ingen placeholder i produkt?
+- Fixad -- Admin, fattar inte alls
+- Fixad -- Admin importera med CSV fil (osv ANSI osv)
+- Fixad -- antal hoppas för mycket?
+- Fixad -- Autogeneras Går inte ändra produkter?
+
+- Alla produkter behövs inte. Vi gör en landing page där vi random select 8? produkter, ta bort sortering, och kanske lägga in en text?
+- Designa om Produkter produktval. Ser väldig dålig.
+- Designa om lite topbar... kanske en snygg hero? mindre?
+- Liknande omdesign av Produkt... 
+- Designa om mer... det färg bättre ut, men way fel... färger? text?
+- Antal per ark dyker upp igen!? där det inte ska vara.
+- Jag tycker allt är för stort! Knappar, Prisstaffling, osv, allt tar så mycket plats. Kanske minska allt.

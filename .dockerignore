@@ -1,0 +1,39 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node modules (om du skulle använda)
+node_modules
+npm-debug.log
+
+# Composer (om du skulle använda)
+vendor
+
+# Backup och temporära filer
+backup/
+*.bak
+*.tmp
+*.log
+
+# Documentation
+README.md
+COPILOT_RULES.md
+PRODUKTSYSTEM_REGLER.md

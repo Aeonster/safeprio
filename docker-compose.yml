@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # PHP/Apache webbserver
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: safeprio_web
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - DB_HOST=mysql
+      - DB_NAME=safeprio_db
+      - DB_USER=root
+      - DB_PASS=root_password
+    depends_on:
+      - mysql
+    networks:
+      - safeprio_network
+
+  # MySQL databas
+  mysql:
+    image: mysql:8.0
+    container_name: safeprio_mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: safeprio_db
+      MYSQL_USER: safeprio_user
+      MYSQL_PASSWORD: safeprio_pass
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - safeprio_network
+
+  # phpMyAdmin (valfritt - för databashantering)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: safeprio_phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root_password
+    depends_on:
+      - mysql
+    networks:
+      - safeprio_network
+
+volumes:
+  mysql_data:
+
+networks:
+  safeprio_network:
+    driver: bridge
