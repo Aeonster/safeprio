@@ -389,9 +389,11 @@ function renderProducts(containerId, products) {
                 <div class="product-card-image">
                     <img src="${SITE_URL}/uploads/${symbolImage}" alt="${symbolName}">
                 </div>
-                <div class="product-card-body">
-                    <span class="product-card-category">${product.kategori_namn} - ${product.symbol_code}</span>
-                    <h3 class="product-card-title">${symbolName}</h3>
+                <div class="product-card-pedestal">
+                    <div class="pedestal-front">
+                        <span class="product-card-category">${product.kategori_namn} - ${product.symbol_code}</span>
+                        <h3 class="product-card-title">${symbolName}</h3>
+                    </div>
                 </div>
             </a>
         `;
