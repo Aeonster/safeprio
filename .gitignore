@@ -1,0 +1,42 @@
+# Databas-backups och SQL-dumps
+*.sql
+backup/
+backups/
+
+# Docker volumes och lokala överrides
+docker-compose.override.yml
+.env
+.env.local
+
+# PHP
+vendor/
+composer.phar
+*.log
+
+# IDE & Editor-filer
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Temporära filer
+tmp/
+temp/
+*.tmp
+*.cache
+
+# Känslig konfiguration (om du har lokala overrides)
+includes/config.local.php
+
+# OS-specifikt
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Node modules (om du använder npm)
+node_modules/
+package-lock.json
+yarn.lock
